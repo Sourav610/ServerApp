@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, NgModule, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, NgModule, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 
@@ -13,7 +13,8 @@ export class CockpitComponent {
   @Output() serverCreated = new EventEmitter<{serverName:string, serverContent:string}>();
   @Output('bpCreated') blueprintCreated = new EventEmitter<{serverName:string, serverContent:string}>();
   // newServerName='';
-  newServerContent ='';
+  // newServerContent ='';
+  @ViewChild('serverContentInput')serverContentInput!:ElementRef;
   // onAddServer(){
   //   this.serverCreated.emit({
   //     serverName:this.newServerName,
@@ -21,17 +22,33 @@ export class CockpitComponent {
   //   });
   // }
 
+  // onAddServer(nameInput:HTMLInputElement){
+  //   this.serverCreated.emit({
+  //     serverName:nameInput.value,
+  //     serverContent:this.newServerContent
+  //   });
+  // }
+
+
+  // onAddBluePrint(nameInput:HTMLInputElement){
+  //   this.blueprintCreated.emit({
+  //     serverName:nameInput.value,
+  //     serverContent:this.newServerContent
+  //   });
+  // }
+  
+  //when using viewChild
   onAddServer(nameInput:HTMLInputElement){
     this.serverCreated.emit({
-      serverName:nameInput.value,
-      serverContent:this.newServerContent
-    });
+          serverName:nameInput.value,
+          serverContent:this.serverContentInput.nativeElement.value
+        });
   }
 
   onAddBluePrint(nameInput:HTMLInputElement){
     this.blueprintCreated.emit({
-      serverName:nameInput.value,
-      serverContent:this.newServerContent
-    });
+          serverName:nameInput.value,
+          serverContent:this.serverContentInput.nativeElement.value
+        });
   }
 }
